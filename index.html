@@ -479,6 +479,34 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
 .orl{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#6a82a8}
 .orv{font-size:14px;font-weight:600;color:#fff}
 .orv.g{color:#34d399;font-size:19px}
+.orders-scroll{flex:1;min-height:0;overflow-y:auto;padding:6px 14px 12px;scrollbar-width:none}
+.orders-scroll::-webkit-scrollbar{display:none}
+.oh-sec{font-size:10.5px;text-transform:uppercase;letter-spacing:1.5px;color:#6a82a8;font-weight:600;margin:12px 2px 8px}
+.oh-card{background:linear-gradient(135deg,#0a1e3d,#071a35);border:1px solid rgba(40,100,220,.3);border-radius:16px;padding:14px;margin-bottom:12px;cursor:pointer;transition:border-color .15s,transform .1s}
+.oh-card:active{transform:scale(.99)}
+.oh-card.active{border-color:rgba(20,140,255,.6);box-shadow:0 0 0 1px rgba(20,140,255,.25),0 6px 18px rgba(0,0,0,.35)}
+.oh-top{display:flex;align-items:center;gap:12px}
+.oh-logo{width:48px;height:48px;border-radius:12px;background:#0e1c34;border:1px solid rgba(20,140,255,.25);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.oh-logo img{width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box}
+.oh-logo .logo-initials{font-size:16px;font-weight:700;color:#a9cfff}
+.oh-mid{flex:1;min-width:0}
+.oh-name{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oh-meta{font-size:11.5px;color:#8da0c0;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oh-right{text-align:right;flex-shrink:0}
+.oh-total{font-size:15px;font-weight:700;color:#fff}
+.oh-time{font-size:10.5px;color:#6a82a8;margin-top:2px}
+.oh-pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px;margin-top:10px}
+.oh-pill.active{background:rgba(37,199,122,.14);color:#34d399;border:1px solid rgba(37,199,122,.4)}
+.oh-pill.delivered{background:rgba(122,140,170,.12);color:#8da0c0;border:1px solid rgba(122,140,170,.3)}
+.oh-pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.oh-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.oh-chev{color:#6a82a8;font-size:18px}
+.oh-empty{text-align:center;padding:60px 24px}
+.oh-empty .ic{width:64px;height:64px;border-radius:18px;background:#0e1c34;border:1px solid rgba(20,140,255,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.oh-empty .ic svg{width:30px;height:30px;stroke:#6a82a8;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.oh-empty .ttl{font-size:17px;font-weight:700;color:#fff;margin-bottom:6px}
+.oh-empty .sub{font-size:13px;color:#8da0c0;line-height:1.5;margin-bottom:20px}
+.oh-empty .cta{background:#148cff;color:#fff;border:none;border-radius:14px;padding:13px 28px;font-size:14px;font-weight:700;cursor:pointer}
 
 /* Order line items (used in order confirmation) */
 .ord-items{padding:6px 0}
@@ -1051,6 +1079,20 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
   -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 30%,transparent 80%);
 }
 .tsm-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* ═════ RASTER TERMINAL MAP (official rendered image + tappable gate hotspots) ═════ */
+.tsm-wrap.has-raster{min-height:320px}
+.tsm-wrap.has-raster .tsm-grid{opacity:0}
+.rmap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px}
+.rmap-inner{position:relative;height:100%;aspect-ratio:1122/1402;max-width:100%}
+.rmap-img{width:100%;height:100%;object-fit:contain;display:block;border-radius:8px;user-select:none;-webkit-user-drag:none}
+.rmap-pins{position:absolute;inset:0;pointer-events:none}
+.rmap-pin{position:absolute;width:30px;height:30px;transform:translate(-50%,-50%);cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:auto;z-index:2}
+.rmap-pin .ring{width:14px;height:14px;border-radius:50%;border:2px solid transparent;transition:all .18s ease}
+.rmap-pin:hover .ring{border-color:rgba(20,140,255,0.85);box-shadow:0 0 8px rgba(20,140,255,0.6);background:rgba(20,140,255,0.12)}
+.rmap-pin.selected .ring{width:20px;height:20px;border-color:#25c77a;background:rgba(37,199,122,0.18);animation:rmapPulse 1.6s ease-in-out infinite}
+@keyframes rmapPulse{0%,100%{box-shadow:0 0 8px rgba(37,199,122,0.9),0 0 0 3px rgba(37,199,122,0.18)}50%{box-shadow:0 0 16px rgba(37,199,122,1),0 0 0 8px rgba(37,199,122,0.04)}}
+
 .tsm-disclaimer{
   text-align:center;
   font-size:9.5px;color:#5d7397;font-style:italic;
@@ -1282,7 +1324,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
       </svg>
       Restaurants
     </div>
-    <div class="bnav-item" onclick="goTo('page-order')">
+    <div class="bnav-item" onclick="goTo('page-orders');renderOrders()">
       <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
       Orders
     </div>
@@ -1742,7 +1784,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
       <svg viewBox="0 0 24 24"><path d="M7 3 V 11 M 11 3 V 11 M 9 11 V 21 M 15 3 C 13 4 13 9 15 11 V 21"/></svg>
       <span>Restaurants</span>
     </div>
-    <div class="bnav-item" onclick="goTo('page-order')">
+    <div class="bnav-item" onclick="goTo('page-orders');renderOrders()">
       <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
       <span>Orders</span>
     </div>
@@ -1909,7 +1951,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
       <svg viewBox="0 0 24 24"><path d="M7 3 V 11 M 11 3 V 11 M 9 11 V 21 M 15 3 C 13 4 13 9 15 11 V 21"/></svg>
       <span>Restaurants</span>
     </div>
-    <div class="bnav-item" onclick="goTo('page-order')">
+    <div class="bnav-item" onclick="goTo('page-orders');renderOrders()">
       <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
       <span>Orders</span>
     </div>
@@ -1941,7 +1983,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
 <!-- ══ ORDER ══ -->
 <div id="page-order" class="page" style="overflow-y:auto">
   <div class="ph">
-    <div class="back" onclick="goTo('page-home')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+    <div class="back" onclick="orderBack()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
     <div><div class="pt">Order Confirmed</div><div class="ps">Runner dispatched</div></div>
   </div>
   <div class="oh">
@@ -1963,8 +2005,48 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
     <div class="or"><span class="orl">Total Paid</span><span class="orv g" id="ord-total" style="font-size:17px">$0.00</span></div>
   </div>
   <div id="ord-earn"></div>
-  <div style="padding:0 16px 16px"><button class="btn-pri" onclick="goTo('page-home');resetOrder()">Back to Home</button></div>
+  <div style="padding:0 16px 16px"><button class="btn-pri" id="ord-cta" onclick="goTo('page-home');resetOrder()">Back to Home</button></div>
 </div>
+
+<div id="page-orders" class="page">
+
+  <div class="statusbar">
+    <span class="time">9:41</span>
+    <div class="icons">
+      <svg width="18" height="11" viewBox="0 0 18 11"><rect x="0" y="7" width="3.5" height="4" rx=".5"/><rect x="5" y="5" width="3.5" height="6" rx=".5"/><rect x="10" y="2.5" width="3.5" height="8.5" rx=".5"/><rect x="14.5" y="0" width="3.5" height="11" rx=".5"/></svg>
+      <svg width="16" height="11" viewBox="0 0 16 11"><path d="M8 1.5C5 1.5 2.5 2.5 1 4L0 3C2 1 5 0 8 0s6 1 8 3L15 4C13.5 2.5 11 1.5 8 1.5zm0 3C5.5 4.5 4 5.5 2.5 6.8L1.5 5.8C3 4 5.5 3 8 3s5 1 6.5 2.8L13.5 6.8C12 5.5 10.5 4.5 8 4.5zm0 3c-1 0-2 .5-2.7 1.3L8 11l2.7-2.2C10 8 9 7.5 8 7.5z"/></svg>
+      <svg width="27" height="12" viewBox="0 0 27 12"><rect x="0" y="1" width="22" height="10" rx="3" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="#fff" opacity=".5"/><rect x="1.5" y="2.5" width="19" height="7" rx="1.5" fill="#fff"/></svg>
+    </div>
+  </div>
+
+  <div class="ph">
+    <div class="back" onclick="goTo('page-home')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+    <div><div class="pt">Your Orders</div><div class="ps" id="orders-sub">Track and review your deliveries</div></div>
+  </div>
+
+  <div class="orders-scroll" id="orders-scroll"><!-- renderOrders() --></div>
+
+  <!-- Bottom nav -->
+  <div class="bnav">
+    <div class="bnav-item" onclick="goTo('page-home')">
+      <svg viewBox="0 0 24 24"><path d="M3 12 L 12 4 L 21 12 V 20 a1 1 0 0 1 -1 1 H 15 V 14 H 9 V 21 H 4 a1 1 0 0 1 -1 -1 Z"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="bnav-item" onclick="goTo('page-rest');renderRests()">
+      <svg viewBox="0 0 24 24"><path d="M7 3 V 11 M 11 3 V 11 M 9 11 V 21 M 15 3 C 13 4 13 9 15 11 V 21"/></svg>
+      <span>Restaurants</span>
+    </div>
+    <div class="bnav-item active" onclick="goTo('page-orders');renderOrders()">
+      <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      <span>Orders</span>
+    </div>
+    <div class="bnav-item" onclick="showRewards()">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9"/></svg>
+      <span>Rewards</span>
+    </div>
+  </div>
+
+</div><!-- /orders -->
 
 </div><!-- /phone -->
 
@@ -2090,6 +2172,8 @@ let selGate = null;
 let selRest = null;
 let restFilter = 'best';
 let restSearchQuery = '';
+let ORDERS = [];
+let orderReturnPage = 'page-home';   // where the Order-Confirmed back button returns to
 
 function goTo(p){
   document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
@@ -2109,7 +2193,7 @@ function showNearbyFood(){
   if (!selGate){
     // No gate chosen yet — send them to pick one (preset to their flight's terminal).
     goTo('page-gate');
-    if (typeof renderTerminalSchematicMap === 'function' && typeof FLIGHT !== 'undefined') renderTerminalSchematicMap(FLIGHT.terminal);
+    if (typeof renderTerminalSchematicMap === 'function' && typeof FLIGHT !== 'undefined') renderTerminalMap(FLIGHT.terminal);
     return;
   }
   updateGateContext();
@@ -2382,7 +2466,73 @@ function renderTerminalSchematicMap(t){
 }
 
 // Keep the old function name as an alias so older callers still work
-function renderTerminalMap(t){ renderTerminalSchematicMap(t); }
+// ═══════════════════════════════════════════════════════════════
+// RASTER TERMINAL MAPS — official rendered images with tappable gate hotspots.
+// Add a terminal here (image file in repo root + normalized gate coords) and
+// renderTerminalMap() automatically uses the image instead of the schematic.
+// Coords are fractions of the image box: [x 0..1 left→right, y 0..1 top→bottom].
+const terminalRasterMaps = {
+  A: { src:'Terminal_A.png', w:1122, h:1402, gates:{
+    A14:[0.610,0.052], A15:[0.670,0.052], A12:[0.610,0.148], A11:[0.670,0.150],
+    A10:[0.610,0.240], A9:[0.670,0.247], A8:[0.670,0.320], A7:[0.852,0.452],
+    A1:[0.532,0.435], A2:[0.422,0.428], A3E:[0.128,0.335], A3F:[0.220,0.335],
+    A3G:[0.310,0.335], A30:[0.168,0.762], A29:[0.182,0.797], A24:[0.548,0.872],
+    A18:[0.832,0.905], A19:[0.805,0.946]
+  } }
+};
+
+function renderTerminalRasterMap(t){
+  const wrap = document.getElementById('tsmWrap');
+  const svg  = document.getElementById('tsmSvg');
+  const m    = terminalRasterMaps[t];
+  if (!wrap || !m) return;
+  if (svg) svg.style.display = 'none';
+  wrap.classList.add('has-raster');
+  const disc = document.querySelector('.tsm-disclaimer');
+  if (disc){ disc.textContent = 'Official terminal layout'; disc.style.opacity = '0.7'; }
+
+  let host = document.getElementById('rmapWrap');
+  if (!host){ host = document.createElement('div'); host.id = 'rmapWrap'; host.className = 'rmap'; wrap.appendChild(host); }
+  host.style.display = 'flex';
+
+  const pins = Object.keys(m.gates).map(id => {
+    const sel = (selGate && selGate.id === id) ? ' selected' : '';
+    const x = m.gates[id][0] * 100, y = m.gates[id][1] * 100;
+    return `<div class="rmap-pin${sel}" style="left:${x}%;top:${y}%" data-gate="${id}" onclick="selectGateById('${id}')" title="Gate ${id}" aria-label="Gate ${id}"><span class="ring"></span></div>`;
+  }).join('');
+
+  host.innerHTML =
+    `<div class="rmap-inner">` +
+    `<img class="rmap-img" src="${m.src}" alt="Terminal ${t} map" onerror="rasterFallback('${t}')">` +
+    `<div class="rmap-pins">${pins}</div></div>`;
+}
+
+// If the image can't load (e.g. file not deployed), drop back to the schematic.
+function rasterFallback(t){
+  const wrap = document.getElementById('tsmWrap');
+  const svg  = document.getElementById('tsmSvg');
+  const host = document.getElementById('rmapWrap');
+  if (host) host.style.display = 'none';
+  if (wrap) wrap.classList.remove('has-raster');
+  if (svg) svg.style.display = 'block';
+  const disc = document.querySelector('.tsm-disclaimer');
+  if (disc){ disc.textContent = 'Schematic layout — temporary visual until official GIS data is available'; disc.style.opacity = ''; }
+  renderTerminalSchematicMap(t);
+}
+
+// Route all map renders: use the raster image when one exists, else the schematic.
+function renderTerminalMap(t){
+  if (typeof terminalRasterMaps !== 'undefined' && terminalRasterMaps[t]){ renderTerminalRasterMap(t); return; }
+  const svg  = document.getElementById('tsmSvg');
+  const host = document.getElementById('rmapWrap');
+  const wrap = document.getElementById('tsmWrap');
+  if (host) host.style.display = 'none';
+  if (wrap) wrap.classList.remove('has-raster');
+  if (svg) svg.style.display = 'block';
+  const disc = document.querySelector('.tsm-disclaimer');
+  if (disc){ disc.textContent = 'Schematic layout — temporary visual until official GIS data is available'; disc.style.opacity = ''; }
+  renderTerminalSchematicMap(t);
+}
 function renderGatePins(){}  // no-op — pins are now part of the SVG render
 
 function confirmGate(){
@@ -5763,6 +5913,11 @@ function placeOrder(){
   }
 
   renderOrderEarn(o);
+  const cta0 = document.getElementById('ord-cta');
+  if (cta0) { cta0.textContent = 'Back to Home'; cta0.setAttribute('onclick', "goTo('page-home');resetOrder()"); }
+  document.querySelector('#page-order .pt').textContent = 'Order Confirmed';
+  document.querySelector('#page-order .ps').textContent = 'Runner dispatched';
+  document.querySelector('#page-order .ot').textContent = 'On the way! \uD83C\uDFC3';
   goTo('page-order');
 }
 
@@ -5814,6 +5969,7 @@ function goToOrder(){
   // Legacy path: kept for "Track My Order" links on the home page (no payment context)
   if (!selGate || !selRest) return;
   window.lastOrder = null;
+  orderReturnPage = 'page-home';
   const e = selRest.est;
   document.getElementById('order-subtitle').textContent = 'Delivering to Gate ' + selGate.id;
   document.getElementById('ord-rest').textContent = selRest.name;
@@ -5823,6 +5979,160 @@ function goToOrder(){
   document.getElementById('ord-paid-row').style.display = 'none';
   renderOrderEarn(null);
   goTo('page-order');
+}
+
+// ════════════════════════════════════════════════════════════════
+// ORDERS HISTORY PAGE
+// ════════════════════════════════════════════════════════════════
+
+// Relative time label ("Just now", "12 min ago", "Yesterday", date)
+function relativeTime(iso){
+  const then = new Date(iso), now = new Date();
+  const mins = Math.floor((now - then) / 60000);
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return mins + ' min ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24 && now.getDate() === then.getDate()) return hrs + (hrs === 1 ? ' hr ago' : ' hrs ago');
+  const ydy = new Date(now); ydy.setDate(now.getDate() - 1);
+  if (then.getDate() === ydy.getDate() && then.getMonth() === ydy.getMonth()) return 'Yesterday';
+  return then.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// Logo (or initials placeholder) for an order record.
+function orderLogoHtml(o){
+  const initials = restaurantInitials(o.restName);
+  if (o.restLogo) {
+    const safe = (o.restName || '').replace(/"/g, '&quot;');
+    return '<img src="' + o.restLogo + '" alt="' + safe + '" ' +
+           'onerror="this.outerHTML=\'<span class=&quot;logo-initials&quot;>' + initials + '</span>\'">';
+  }
+  return '<span class="logo-initials">' + initials + '</span>';
+}
+
+// Total-paid label (cash, miles, or mixed) for an order record.
+function orderTotalLabel(o){
+  if (o.cashPaid === 0 && o.milesRedeemed > 0) return o.milesRedeemed.toLocaleString() + ' mi';
+  if (o.milesRedeemed > 0) return fmtMoney(o.cashPaid) + ' + ' + o.milesRedeemed.toLocaleString() + ' mi';
+  return fmtMoney(o.cashPaid != null ? o.cashPaid : o.grand);
+}
+
+function ordersCardHtml(o){
+  const count = o.items.reduce((s, it) => s + it.qty, 0);
+  const itemWord = count === 1 ? 'item' : 'items';
+  const pillCls = o.status === 'active' ? 'active' : 'delivered';
+  const pillTxt = o.status === 'active' ? 'On the way' : 'Delivered';
+  const chev = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  return (
+    '<div class="oh-card ' + (o.status === 'active' ? 'active' : '') + '" onclick="openOrderDetail(\'' + o.id + '\')">' +
+      '<div class="oh-top">' +
+        '<div class="oh-logo">' + orderLogoHtml(o) + '</div>' +
+        '<div class="oh-mid">' +
+          '<div class="oh-name">' + o.restName + '</div>' +
+          '<div class="oh-meta">Gate ' + o.gate + ' \u00b7 Terminal ' + o.terminal + ' \u00b7 ' + count + ' ' + itemWord + '</div>' +
+        '</div>' +
+        '<div class="oh-right">' +
+          '<div class="oh-total">' + orderTotalLabel(o) + '</div>' +
+          '<div class="oh-time">' + relativeTime(o.placedAt) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="oh-bottom">' +
+        '<div class="oh-pill ' + pillCls + '"><span class="dot"></span>' + pillTxt + '</div>' +
+        '<div class="oh-chev">' + chev + '</div>' +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function renderOrders(){
+  const el = document.getElementById('orders-scroll');
+  const sub = document.getElementById('orders-sub');
+  if (!el) return;
+
+  if (ORDERS.length === 0) {
+    if (sub) sub.textContent = 'Track and review your deliveries';
+    el.innerHTML =
+      '<div class="oh-empty">' +
+        '<div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>' +
+        '<div class="ttl">No orders yet</div>' +
+        '<div class="sub">When you order food to your gate, your<br>deliveries will show up here.</div>' +
+        '<button class="cta" onclick="startOrder()">Start an order</button>' +
+      '</div>';
+    return;
+  }
+
+  const active = ORDERS.filter(o => o.status === 'active');
+  const past = ORDERS.filter(o => o.status !== 'active');
+  if (sub) sub.textContent = ORDERS.length + (ORDERS.length === 1 ? ' order' : ' orders');
+
+  let html = '';
+  if (active.length) {
+    html += '<div class="oh-sec">Active</div>';
+    html += active.map(ordersCardHtml).join('');
+  }
+  if (past.length) {
+    html += '<div class="oh-sec">Past orders</div>';
+    html += past.map(ordersCardHtml).join('');
+  }
+  el.innerHTML = html;
+}
+
+// Open a stored order on the Order-Confirmed screen (read-only detail view).
+function openOrderDetail(id){
+  const o = ORDERS.find(x => x.id === id);
+  if (!o) return;
+  window.lastOrder = o;
+  orderReturnPage = 'page-orders';
+
+  const onWay = o.status === 'active';
+  document.querySelector('#page-order .pt').textContent = onWay ? 'Order Confirmed' : 'Order Details';
+  document.querySelector('#page-order .ps').textContent = onWay ? 'Runner dispatched' : 'Delivered';
+  document.querySelector('#page-order .ot').textContent = onWay ? 'On the way! \uD83C\uDFC3' : 'Delivered \u2705';
+  document.getElementById('order-subtitle').textContent =
+    (onWay ? 'Delivering to Gate ' : 'Delivered to Gate ') + o.gate;
+
+  document.getElementById('ord-rest').textContent = o.restName;
+  document.getElementById('ord-gate').textContent = 'Gate ' + o.gate;
+  document.getElementById('ord-dist').textContent = o.meters != null ? distLabel(o.meters) : '\u2014';
+  document.getElementById('ord-eta').textContent = (o.etaMin != null ? o.etaMin : '\u2014') + ' min';
+
+  // Items
+  const itemsEl = document.getElementById('ord-items');
+  itemsEl.innerHTML = '';
+  o.items.forEach(it => {
+    const row = document.createElement('div');
+    row.className = 'ord-item-row';
+    row.innerHTML =
+      '<div class="ord-item-left">' +
+        '<div class="ord-item-emoji">' + (it.emoji || '\uD83C\uDF7D\uFE0F') + '</div>' +
+        '<div class="ord-item-info">' +
+          '<div class="ord-item-name">' + it.name + '</div>' +
+          '<div class="ord-item-qty">Qty ' + it.qty + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ord-item-price">' + fmtMoney(it.price * it.qty) + '</div>';
+    itemsEl.appendChild(row);
+  });
+  document.getElementById('ord-items-card').style.display = 'block';
+
+  // Paid-with + total
+  document.getElementById('ord-paid').innerHTML = paymentMethodMarkup(o);
+  document.getElementById('ord-paid-row').style.display = 'flex';
+  document.getElementById('ord-total').textContent = orderTotalLabel(o);
+
+  renderOrderEarn(o);
+  const cta = document.getElementById('ord-cta');
+  if (cta) { cta.textContent = 'Back to Orders'; cta.setAttribute('onclick', "orderBack()"); }
+  goTo('page-order');
+}
+
+// Order-Confirmed back button: return to wherever we came from.
+function orderBack(){
+  const target = orderReturnPage || 'page-home';
+  const cta = document.getElementById('ord-cta');
+  if (cta) { cta.textContent = 'Back to Home'; cta.setAttribute('onclick', "goTo('page-home');resetOrder()"); }
+  if (target === 'page-orders') { goTo('page-orders'); renderOrders(); }
+  else { goTo('page-home'); resetOrder(); }
+  orderReturnPage = 'page-home';
 }
 
 // drawMap is no longer needed (gate map is static SVG in page-gate)
@@ -6507,7 +6817,30 @@ function placePaymentOrder(method){
     milesRedeemed, cashPaid, milesEarned, couldEarn, wasMember,
   };
   window.lastPaymentMethod = window.lastOrder.method;  // back-compat
+
+  // ── Record this order in the Orders-history list ──
+  // Newest order is "On the way"; demote any earlier active order to delivered.
+  ORDERS.forEach(o => { o.status = 'delivered'; });
+  const e = (selRest && selRest.est) || {};
+  ORDERS.unshift({
+    id: 'F2B' + String(1000 + ORDERS.length + 1),
+    placedAt: new Date().toISOString(),
+    status: 'active',
+    restName: selRest.name,
+    restLogo: selRest.logo || null,
+    terminal: selGate.terminal,
+    concourse: selRest.concourse || '',
+    gate: selGate.id,
+    meters: e.meters,
+    etaMin: e.totalMin,
+    items: cartItems().map(it => ({ name: it.name, emoji: it.emoji, qty: it.qty, price: it.price })),
+    method, subtotal: sub, fee, tax, grand,
+    milesRedeemed, cashPaid, milesEarned, couldEarn, wasMember,
+    balanceAfter: userRewards.isMember ? userRewards.miles : null,
+  });
+
   applyMiles = false;  // reset redemption toggle for the next order
+  orderReturnPage = 'page-home';
   placeOrder();
 }
 
@@ -6566,7 +6899,7 @@ function renderFlight() {
   // Point the gate map's terminal tabs at the flight's terminal.
   document.querySelectorAll('#termTabs .term-tab').forEach(x =>
     x.classList.toggle('active', x.getAttribute('data-t') === FLIGHT.terminal));
-  if (typeof renderTerminalSchematicMap === 'function') renderTerminalSchematicMap(FLIGHT.terminal);
+  if (typeof renderTerminalSchematicMap === 'function') renderTerminalMap(FLIGHT.terminal);
 }
 
 // ── Flight selector sheet ──
