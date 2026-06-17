@@ -1084,14 +1084,19 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
 .tsm-wrap.has-raster{min-height:320px}
 .tsm-wrap.has-raster .tsm-grid{opacity:0}
 .rmap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px}
-.rmap-inner{position:relative;height:100%;aspect-ratio:1122/1402;max-width:100%}
+.rmap-inner{position:relative}
 .rmap-img{width:100%;height:100%;object-fit:contain;display:block;border-radius:8px;user-select:none;-webkit-user-drag:none}
 .rmap-pins{position:absolute;inset:0;pointer-events:none}
-.rmap-pin{position:absolute;width:30px;height:30px;transform:translate(-50%,-50%);cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:auto;z-index:2}
+.rmap-pin{position:absolute;width:24px;height:24px;transform:translate(-50%,-50%);cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:auto;z-index:2}
 .rmap-pin .ring{width:14px;height:14px;border-radius:50%;border:2px solid transparent;transition:all .18s ease}
 .rmap-pin:hover .ring{border-color:rgba(20,140,255,0.85);box-shadow:0 0 8px rgba(20,140,255,0.6);background:rgba(20,140,255,0.12)}
 .rmap-pin.selected .ring{width:20px;height:20px;border-color:#25c77a;background:rgba(37,199,122,0.18);animation:rmapPulse 1.6s ease-in-out infinite}
 @keyframes rmapPulse{0%,100%{box-shadow:0 0 8px rgba(37,199,122,0.9),0 0 0 3px rgba(37,199,122,0.18)}50%{box-shadow:0 0 16px rgba(37,199,122,1),0 0 0 8px rgba(37,199,122,0.04)}}
+/* ═════ GATE CHIP SELECTOR (guarantees every gate is tappable, incl. adjacent ones) ═════ */
+.gate-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:4px 14px 6px;flex-shrink:0}
+.gchip{min-width:34px;padding:6px 9px;border-radius:9px;background:#0d1c34;border:1px solid rgba(20,140,255,0.3);color:#a9cfff;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;text-align:center;letter-spacing:-.2px}
+.gchip:hover{border-color:#148cff;color:#fff;background:#0e2347}
+.gchip.selected{background:#148cff;border-color:#1a8fff;color:#fff;box-shadow:0 0 10px rgba(20,140,255,0.5)}
 
 .tsm-disclaimer{
   text-align:center;
@@ -1473,6 +1478,7 @@ body{display:flex;align-items:center;justify-content:center;min-height:100vh;min
     <div class="legend-item"><span class="legend-dot green"></span>Best for on-time delivery</div>
   </div>
   <div class="tsm-disclaimer">Schematic layout — temporary visual until official GIS data is available</div>
+  <div class="gate-chips" id="gateChips"></div>
 
   <!-- ═════ SELECTED GATE CARD ═════ -->
   <div class="selected-gate-card">
@@ -2476,11 +2482,55 @@ const terminalRasterMaps = {
     A14:[0.610,0.052], A15:[0.670,0.052], A12:[0.610,0.148], A11:[0.670,0.150],
     A10:[0.610,0.240], A9:[0.670,0.247], A8:[0.670,0.320], A7:[0.852,0.452],
     A1:[0.532,0.435], A2:[0.422,0.428], A3E:[0.128,0.335], A3F:[0.220,0.335],
-    A3G:[0.310,0.335], A30:[0.168,0.762], A29:[0.182,0.797], A24:[0.548,0.872],
-    A18:[0.832,0.905], A19:[0.805,0.946]
+    A3G:[0.310,0.335], A30:[0.155,0.748], A29:[0.182,0.797], A24:[0.548,0.872],
+    A18:[0.848,0.892], A19:[0.805,0.946]
+  } },
+  C: { src:'Terminal_C.png', w:1122, h:1402, gates:{
+    C8:[0.505,0.168], C9:[0.452,0.225], C6:[0.544,0.255], C10:[0.458,0.375],
+    C5:[0.544,0.375], C4:[0.544,0.490], C12:[0.378,0.608], C15:[0.110,0.670],
+    C14:[0.234,0.672], C3:[0.730,0.675], C2:[0.830,0.675], C1:[0.929,0.668]
+  } },
+  E: { src:'Terminal_E.png', w:1448, h:1086, gates:{
+    E1:[0.155,0.295], E10B:[0.285,0.300], E2A:[0.180,0.470], E9:[0.280,0.490],
+    E3:[0.180,0.610], E8:[0.285,0.610], E4A:[0.165,0.710], E5A:[0.146,0.768],
+    E5B:[0.185,0.790], E6:[0.230,0.785], E7A:[0.290,0.780], E23:[0.915,0.210],
+    E15B:[0.785,0.470], E22:[0.890,0.490], E16:[0.790,0.610], E21:[0.890,0.610],
+    E18B:[0.800,0.780], E19:[0.840,0.792], E20A:[0.885,0.780]
+  } },
+  D: { src:'Terminal_D.png', w:1448, h:1086, gates:{
+    D6:[0.130,0.075], D5A:[0.185,0.130], D5B:[0.195,0.185], D4B:[0.085,0.195],
+    D3A:[0.183,0.285], D3B:[0.190,0.345], D2B:[0.090,0.392], D2A:[0.115,0.455],
+    D1B:[0.195,0.560], D7:[0.285,0.700], D8:[0.330,0.700], D9:[0.375,0.700],
+    D10:[0.430,0.618], D11:[0.500,0.613], D12:[0.570,0.608], D14:[0.665,0.608],
+    D15:[0.740,0.603], D16:[0.810,0.598], D17:[0.890,0.565], D18A:[0.945,0.650]
   } }
 };
 
+function gateNatSort(a,b){
+  const pa=a.match(/^([A-Z]+)(\d+)([A-Z]*)$/), pb=b.match(/^([A-Z]+)(\d+)([A-Z]*)$/);
+  if(pa&&pb){ if(pa[1]!==pb[1]) return pa[1]<pb[1]?-1:1; const na=+pa[2],nb=+pb[2]; if(na!==nb) return na-nb; return pa[3]<pb[3]?-1:(pa[3]>pb[3]?1:0); }
+  return a<b?-1:1;
+}
+function renderGateChips(t){
+  const host=document.getElementById('gateChips'); if(!host) return;
+  const ids=FLY2BITE_GATES.filter(g=>g.terminal===t).map(g=>g.id).sort(gateNatSort);
+  host.innerHTML = ids.map(id=>{
+    const sel=(selGate&&selGate.id===id)?' selected':'';
+    return `<div class="gchip${sel}" onclick="selectGateById('${id}')" role="button" tabindex="0" aria-label="Select gate ${id}">${id}</div>`;
+  }).join('');
+}
+
+function fitRasterInner(host, m){
+  const inner = host && host.querySelector('.rmap-inner');
+  if (!inner || !m) return;
+  const cw = host.clientWidth - 16, ch = host.clientHeight - 16;   // minus .rmap padding
+  if (cw <= 0 || ch <= 0) return;
+  const ar = m.w / m.h;
+  let w = cw, hh = cw / ar;
+  if (hh > ch){ hh = ch; w = ch * ar; }
+  inner.style.width = Math.round(w) + 'px';
+  inner.style.height = Math.round(hh) + 'px';
+}
 function renderTerminalRasterMap(t){
   const wrap = document.getElementById('tsmWrap');
   const svg  = document.getElementById('tsmSvg');
@@ -2505,6 +2555,20 @@ function renderTerminalRasterMap(t){
     `<div class="rmap-inner">` +
     `<img class="rmap-img" src="${m.src}" alt="Terminal ${t} map" onerror="rasterFallback('${t}')">` +
     `<div class="rmap-pins">${pins}</div></div>`;
+
+  window._rasterTerminal = t;
+  fitRasterInner(host, m);
+  requestAnimationFrame(() => fitRasterInner(host, m));
+  const img = host.querySelector('.rmap-img');
+  if (img) img.addEventListener('load', () => fitRasterInner(host, m), { once:true });
+  if (!window._rasterResizeHooked){
+    window._rasterResizeHooked = true;
+    window.addEventListener('resize', () => {
+      const h2 = document.getElementById('rmapWrap');
+      const mm = terminalRasterMaps[window._rasterTerminal];
+      if (h2 && mm && h2.style.display !== 'none') fitRasterInner(h2, mm);
+    });
+  }
 }
 
 // If the image can't load (e.g. file not deployed), drop back to the schematic.
@@ -2518,11 +2582,12 @@ function rasterFallback(t){
   const disc = document.querySelector('.tsm-disclaimer');
   if (disc){ disc.textContent = 'Schematic layout — temporary visual until official GIS data is available'; disc.style.opacity = ''; }
   renderTerminalSchematicMap(t);
+  renderGateChips(t);
 }
 
 // Route all map renders: use the raster image when one exists, else the schematic.
 function renderTerminalMap(t){
-  if (typeof terminalRasterMaps !== 'undefined' && terminalRasterMaps[t]){ renderTerminalRasterMap(t); return; }
+  if (typeof terminalRasterMaps !== 'undefined' && terminalRasterMaps[t]){ renderTerminalRasterMap(t); renderGateChips(t); return; }
   const svg  = document.getElementById('tsmSvg');
   const host = document.getElementById('rmapWrap');
   const wrap = document.getElementById('tsmWrap');
@@ -2532,6 +2597,7 @@ function renderTerminalMap(t){
   const disc = document.querySelector('.tsm-disclaimer');
   if (disc){ disc.textContent = 'Schematic layout — temporary visual until official GIS data is available'; disc.style.opacity = ''; }
   renderTerminalSchematicMap(t);
+  renderGateChips(t);
 }
 function renderGatePins(){}  // no-op — pins are now part of the SVG render
 
